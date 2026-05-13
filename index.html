@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMF | PLAN</title>
+    <title>EMS1 | PLAN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -182,7 +182,7 @@
                 <div class="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-xl ring-4 ring-blue-500/20">
                     <span class="text-white text-3xl font-black italic">W</span>
                 </div>
-                <h2 class="text-3xl font-black mb-2 uppercase tracking-tighter text-slate-800 dark:text-white">DMF ACCESS</h2>
+                <h2 class="text-3xl font-black mb-2 uppercase tracking-tighter text-slate-800 dark:text-white">EMS1 ACCESS</h2>
                 <input type="password" id="accessKey" onkeypress="if(event.key==='Enter') checkAccess()" placeholder="••••••••" class="w-full p-4 border-none rounded-2xl mb-4 text-center font-bold outline-none focus:ring-2 focus:ring-blue-500 transition-all text-slate-900 dark:text-white placeholder-slate-400">
                 <button onclick="checkAccess()" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white p-4 rounded-2xl font-black uppercase shadow-lg transform hover:scale-105 transition-all">Unlock</button>
             </div>
@@ -290,7 +290,7 @@
         <!-- Header -->
         <header class="glass-card p-6 rounded-[2rem] flex justify-between items-center relative overflow-hidden group">
             <div class="relative z-10">
-                <h1 class="text-2xl font-black italic uppercase tracking-tighter drop-shadow-lg text-slate-800 dark:text-white">DMF <span class="text-blue-600 dark:text-blue-400">PLAN</span></h1>
+                <h1 class="text-2xl font-black italic uppercase tracking-tighter drop-shadow-lg text-slate-800 dark:text-white">EMS1 <span class="text-blue-600 dark:text-blue-400">PLAN</span></h1>
                 <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">REPORTING</p>
             </div>
             <div class="flex items-center gap-3 relative z-10">
@@ -555,20 +555,20 @@
 
     <script>
         const CONFIG = {
-            authUrl: "dmf-plan.alamiuness.workers.dev",
+            authUrl: "ems1-plan.alamiuness.workers.dev",
             firebase: { 
-                apiKey: "AIzaSyBaPXh-EtZqg-cgD_RNyEx_PNisfngT8-s", 
-                authDomain: "dmf-reporting.firebaseapp.com", 
-                databaseURL: "https://dmf-reporting-default-rtdb.firebaseio.com/", 
-                projectId: "dmf-reporting",
-                storageBucket: "dmf-reporting.firebasestorage.app",
-                messagingSenderId: "151591156744",
-                appId: "1:151591156744:web:ec1a8c2a68b629c46ca5bd",
-                measurementId: "G-SXD0J4SVK4"
+                apiKey: "AIzaSyCEwB2iTsirdhL6O3xymPGAt2k5yia6tjw", 
+                authDomain: "ems1-reporting.firebaseapp.com", 
+                databaseURL: "https://ems1-reporting-default-rtdb.firebaseio.com", 
+                projectId: "ems1-reporting",
+                storageBucket: "ems1-reporting.firebasestorage.app",
+                messagingSenderId: "649094135962",
+                appId: "1:649094135962:web:eaa6641f80c2805e8f5f23",
+                measurementId: "G-G8JF9QJ6QR"
             },
             telegram: { 
-                token: '8500545149:AAH8f6UfSHmjVar_rigpnOBMpyTa6xQUGEI', 
-                chatId: '-5180391068' 
+                token: '8484063065:AAELilK4oWpkDYqW_RA1D3zCza3d-U6hVSU', 
+                chatId: '-5173755412' 
             }
         };
 
@@ -592,15 +592,15 @@
 
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
-            localStorage.setItem('dmf_darkmode', document.documentElement.classList.contains('dark'));
+            localStorage.setItem('ems1_darkmode', document.documentElement.classList.contains('dark'));
         }
 
         window.onload = async () => {
-            if(localStorage.getItem('dmf_darkmode') === 'true' || window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');
+            if(localStorage.getItem('ems1_darkmode') === 'true' || window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');
             generateSpaceEffect();
 
             const params = new URLSearchParams(window.location.search);
-            const savedRole = localStorage.getItem('dmf_role');
+            const savedRole = localStorage.getItem('ems1_role');
             const isViewMode = params.get('mode') === 'view';
             const historyId = params.get('historyId'); // NEW: Check for History ID
 
@@ -648,11 +648,11 @@
 
             // Load Global Configs
             const [confSnap, globalSnap, visibilitySnap, platListSnap, editorsSnap] = await Promise.all([
-                db.ref('dmf/config/boites').once('value'),
-                db.ref('dmf/global_stats').once('value'),
-                db.ref('dmf/config/visibility').once('value'),
-                db.ref('dmf/config/platforms_list').once('value'),
-                db.ref('dmf/config/editors').once('value')
+                db.ref('ems1/config/boites').once('value'),
+                db.ref('ems1/global_stats').once('value'),
+                db.ref('ems1/config/visibility').once('value'),
+                db.ref('ems1/config/platforms_list').once('value'),
+                db.ref('ems1/config/editors').once('value')
             ]);
             
             if(confSnap.exists()) boitesConfig = confSnap.val();
@@ -686,7 +686,7 @@
             // NEW: Handle History Snapshot with STRICT MODE
             if (historyId) {
                 try {
-                    const snap = await db.ref(`dmf/history/${historyId}`).once('value');
+                    const snap = await db.ref(`ems1/history/${historyId}`).once('value');
                     if (snap.exists()) {
                         IS_HISTORY_VIEW = true; // Enable strict history mode
                         
@@ -738,7 +738,7 @@
             if(EDITOR_NAMES.includes(cleanName)) return alert("Name already exists!");
             
             EDITOR_NAMES.push(cleanName);
-            await db.ref('dmf/config/editors').set(EDITOR_NAMES);
+            await db.ref('ems1/config/editors').set(EDITOR_NAMES);
             renderEditorsList();
             
             // Auto select new one
@@ -755,7 +755,7 @@
 
             if(confirm(`Are you sure you want to PERMANENTLY remove "${name}" from the list?`)) {
                 EDITOR_NAMES = EDITOR_NAMES.filter(n => n !== name);
-                await db.ref('dmf/config/editors').set(EDITOR_NAMES);
+                await db.ref('ems1/config/editors').set(EDITOR_NAMES);
                 renderEditorsList();
                 
                 // Select first available or keep selection valid
@@ -858,7 +858,7 @@
 
                 // If data is "empty" (init state) AND not from history snapshot AND NOT HISTORY VIEW, fetch it. 
                 if ((!data || (!data.updatedAt && !data.fromHistory)) && !IS_HISTORY_VIEW) {
-                    const snap = await db.ref(`dmf/plans/${plat}/current`).once('value');
+                    const snap = await db.ref(`ems1/plans/${plat}/current`).once('value');
                     const dbData = snap.val() || { deploys: [], stats: {}, filter: "" };
                     
                     data = dbData;
@@ -1190,9 +1190,9 @@
 
             // Save new state
             await Promise.all([
-                db.ref('dmf/config/platforms_list').set(PLATFORMS),
-                db.ref('dmf/config/boites').set(boitesConfig),
-                db.ref('dmf/config/visibility').set(platVisibility)
+                db.ref('ems1/config/platforms_list').set(PLATFORMS),
+                db.ref('ems1/config/boites').set(boitesConfig),
+                db.ref('ems1/config/visibility').set(platVisibility)
             ]);
 
             location.reload();
@@ -1203,8 +1203,8 @@
                 PLATFORMS = PLATFORMS.filter(p => p !== name);
                 
                 await Promise.all([
-                    db.ref('dmf/config/platforms_list').set(PLATFORMS),
-                    db.ref(`dmf/plans/${name}`).remove() // Clean data
+                    db.ref('ems1/config/platforms_list').set(PLATFORMS),
+                    db.ref(`ems1/plans/${name}`).remove() // Clean data
                 ]);
                 
                 location.reload();
@@ -1214,7 +1214,7 @@
         async function updateBoitesConfig(plat, val) {
             if(userRole !== 'super') return;
             boitesConfig[plat] = parseInt(val) || 0;
-            await db.ref('dmf/config/boites').set(boitesConfig);
+            await db.ref('ems1/config/boites').set(boitesConfig);
             renderPlatformDeploys(plat); // Re-calc division
             checkChanges();
         }
@@ -1718,7 +1718,7 @@
                     pause: document.getElementById('glb_pause').value,
                     proxy: document.getElementById('glb_proxy').value
                 };
-                await db.ref('dmf/global_stats').set(newGlobal);
+                await db.ref('ems1/global_stats').set(newGlobal);
             }
             
             const editorName = document.getElementById('globalEditor').value;
@@ -1823,7 +1823,7 @@
                 }
 
                 // Save to Firebase (Current State)
-                await db.ref(`dmf/plans/${currentPlatform}/current`).set({ 
+                await db.ref(`ems1/plans/${currentPlatform}/current`).set({ 
                     deploys, 
                     filter, 
                     stats, 
@@ -1837,7 +1837,7 @@
             let historyId = null;
             if (anyRealChanges && sendNotif) {
                 const now = new Date();
-                const historyRef = db.ref('dmf/history').push(); // Generate ID first
+                const historyRef = db.ref('ems1/history').push(); // Generate ID first
                 historyId = historyRef.key;
                 
                 const historyEntry = {
@@ -1858,7 +1858,7 @@
                     if (!changesForPlat) continue;
 
                     // Dynamic URL Logic:
-                    const platformUrl = `https://dmf-plan.pages.dev/`;
+                    const platformUrl = `https://ems1-plan.pages.dev/`;
                     let viewLink = `${platformUrl}?mode=view&plat=${encodeURIComponent(plat)}&target=true`;
                     
                     // NEW: Append History ID for Time Travel
@@ -1905,7 +1905,7 @@
             // Remove entries older than 5 days
             // 5 * 24 * 60 * 60 * 1000 = 432000000 ms
             const cutoff = Date.now() - 432000000;
-            const ref = db.ref('dmf/history');
+            const ref = db.ref('ems1/history');
             
             try {
                 const snap = await ref.orderByChild('timestamp').endAt(cutoff).once('value');
@@ -1927,7 +1927,7 @@
             
             try {
                 // Fetch last 50 entries
-                const snap = await db.ref('dmf/history').orderByChild('timestamp').limitToLast(50).once('value');
+                const snap = await db.ref('ems1/history').orderByChild('timestamp').limitToLast(50).once('value');
                 
                 list.innerHTML = '';
                 if(!snap.exists()) {
@@ -1980,7 +1980,7 @@
             closeHistory();
 
             try {
-                const snap = await db.ref(`dmf/history/${key}`).once('value');
+                const snap = await db.ref(`ems1/history/${key}`).once('value');
                 if(!snap.exists()) {
                     alert("History entry not found.");
                     document.getElementById('loadingOverlay').style.display = 'none';
@@ -2035,7 +2035,7 @@
                 body: JSON.stringify({ password: k })
             }).then(r=>r.json()).then(d=>{
                 if(d.success) {
-                    localStorage.setItem('dmf_key', 'valid'); localStorage.setItem('dmf_role', d.role);
+                    localStorage.setItem('ems1_key', 'valid'); localStorage.setItem('ems1_role', d.role);
                     location.reload();
                 } else alert('Access Denied');
             }).catch((e)=>{
@@ -2048,7 +2048,7 @@
         function downloadOneIPs(plat, index) {
             const txt = document.getElementById(`ips-${plat}-${index}`).value.trim();
             if(!txt) return alert('Empty!');
-            downloadFile(txt, `ips${index+1}${plat.toLowerCase()}dmf.txt`);
+            downloadFile(txt, `ips${index+1}${plat.toLowerCase()}ems1.txt`);
         }
         
         function copyOneIPs(plat, index, btn) {
@@ -2065,7 +2065,7 @@
             textareas.forEach((ta, i) => {
                 const txt = ta.value.trim();
                 if(txt) {
-                    setTimeout(() => downloadFile(txt, `ips${i+1}${plat.toLowerCase()}dmf.txt`), count*300);
+                    setTimeout(() => downloadFile(txt, `ips${i+1}${plat.toLowerCase()}ems1.txt`), count*300);
                     count++;
                 }
             });
@@ -2147,7 +2147,7 @@
         // VISIBILITY TOGGLE (Super Admin)
         async function toggleVisibility(plat) {
             platVisibility[plat] = !platVisibility[plat];
-            await db.ref('dmf/config/visibility').set(platVisibility);
+            await db.ref('ems1/config/visibility').set(platVisibility);
             const wrapper = document.getElementById(`wrapper-${plat}`);
             if(platVisibility[plat]) wrapper.classList.remove('opacity-50', 'grayscale');
             else wrapper.classList.add('opacity-50', 'grayscale');
@@ -2575,15 +2575,15 @@
                     platformsData[plat].stats.seeds = newTotal;
 
                     // Push specific paths
-                    updates.push(db.ref(`dmf/plans/${plat}/current/stats/seeds_chrome`).set(valChrome));
-                    updates.push(db.ref(`dmf/plans/${plat}/current/stats/seeds_brave`).set(valBrave));
-                    updates.push(db.ref(`dmf/plans/${plat}/current/stats/seeds`).set(newTotal));
+                    updates.push(db.ref(`ems1/plans/${plat}/current/stats/seeds_chrome`).set(valChrome));
+                    updates.push(db.ref(`ems1/plans/${plat}/current/stats/seeds_brave`).set(valBrave));
+                    updates.push(db.ref(`ems1/plans/${plat}/current/stats/seeds`).set(newTotal));
                 } else {
                     const el = document.getElementById(`breakdown-seed-${plat}`);
                     if(el) {
                         const newVal = parseInt(el.value || 0);
                         platformsData[plat].stats.seeds = newVal;
-                        updates.push(db.ref(`dmf/plans/${plat}/current/stats/seeds`).set(newVal));
+                        updates.push(db.ref(`ems1/plans/${plat}/current/stats/seeds`).set(newVal));
                     }
                 }
             }
@@ -2626,7 +2626,7 @@
             realtimeListenersActive = true;
 
             PLATFORMS.forEach(plat => {
-                db.ref(`dmf/plans/${plat}/current`).on('value', (snap) => {
+                db.ref(`ems1/plans/${plat}/current`).on('value', (snap) => {
                     // INSTANT REAL-TIME SYNC: Always update for all users (per user request for on-the-spot updates across sessions)
                     // Removed previous skip for unsaved changes to ensure instant propagation of ANY change (IPS / IDs / BATCH / RULES / KEYWORD / STATS ...)
                     // This makes the interface update SUR PLACE instantly in every open tab / device
@@ -2684,7 +2684,7 @@
             });
 
             // Global stats listener - also always sync instantly
-            db.ref('dmf/global_stats').on('value', (snap) => {
+            db.ref('ems1/global_stats').on('value', (snap) => {
                 if (!snap.exists()) return;
                 const data = snap.val();
                 ['rdps', 'proxy'].forEach(k => {
